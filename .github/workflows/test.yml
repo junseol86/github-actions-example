@@ -26,12 +26,14 @@ jobs:
     - name: if fail
       uses: actions/github-script@v5.0.0
       with:
+        github-token: ${{github.token}}
         script: |
           const ref = "${{github.ref}}"
-          const pull_number = Number(ref.split("/")[2])
+          const ref = "${{github.ref}}"
+          const pull_num = Number(ref.split("/")[2])
           await github.pulls.createReview({
             ...context.repo,
-            pull_number,
+            pull_num,
             body:"테스트가 실패했습니다.",
             event: "REQUEST_CHANGES"
           })
